@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap");
+
+$color-accent: hsl(178, 100%, 50%);
+
+:root {
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
+
+  --color-bg-1: hsl(217, 54%, 11%);
+  --color-bg-2: hsl(216, 50%, 16%);
+  --color-bg-card: hsl(215, 32%, 27%);
+
+  --color-text: hsl(215, 51%, 70%);
+  --color-text-accent: hsl(178, 100%, 50%);
+
+  --gradient: linear-gradient(
+    to top right,
+    var(--color-bg-2),
+    var(--color-bg-1)
+  );
+
+  // spacing
+  --spacing-0: 0;
+  --spacing-8: 0.8rem;
+  --spacing-16: 1.6rem;
+  --spacing-24: 2.4rem;
+
+  // typography
+  --ff: "Outfit", sans-serif;
+
+  --fw-bold: 700;
+  --fw-medium: 500;
+  --fw-regular: 400;
+
+  --fs-1: 2.2rem;
+  --fs-2: 1.8rem;
+  --fs-3: 1.6rem;
+
+  --lh-1: 1.45;
+  --lh-2: 1.25;
+
+  --ls: 0;
+}
+// mixin
+@mixin text-preset-1 {
+  font-family: var(--ff);
+  font-size: var(--fs-1);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-1);
+  letter-spacing: var(--ls);
+}
+@mixin text-preset-2 {
+  font-family: var(--ff);
+  font-size: var(--fs-2);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-1);
+  letter-spacing: var(--ls);
+}
+@mixin text-preset-3 {
+  font-family: var(--ff);
+  font-size: var(--fs-3);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-2);
+  letter-spacing: var(--ls);
+}
+@mixin text-preset-3-medium {
+  font-family: var(--ff);
+  font-size: var(--fs-3);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-2);
+  letter-spacing: var(--ls);
+}
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+// reset
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+img {
+  max-width: 100%;
+  object-fit: cover;
+  display: block;
+}
+a {
+  text-decoration: none;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: var(--fs-3);
+  min-height: 100vh;
+  background: var(--gradient);
+  display: grid;
+  place-items: center;
+}
+.card {
+  background-color: var(--color-bg-card);
+  border-radius: var(--spacing-8);
+  max-width: 35rem;
+  padding: var(--spacing-24);
+  @include flex-col;
+  gap: var(--spacing-24);
+
+  &-head {
+    a {
+      position: relative;
+      display: inline-block;
+
+      img {
+        border-radius: var(--spacing-8);
+      }
+
+      &::after {
+        position: absolute;
+        content: "";
+        inset: 0;
+        background-color: transparentize($color-accent, 0.7);
+        background-image: url(./../images/icon-view.svg);
+        // z-index: 1;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        border-radius: var(--spacing-8);
+        transition: all 0.3s ease;
+      }
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &-body {
+    @include flex-col;
+    gap: var(--spacing-24);
+
+    &-content {
+      @include flex-col;
+      gap: var(--spacing-24);
+
+      &-info {
+        @include flex-col;
+        gap: var(--spacing-16);
+
+        h1 {
+          color: var(--white);
+
+          @include text-preset-1;
+          &:hover {
+            color: var(--color-text-accent);
+          }
+        }
+        p {
+          color: var(--color-text);
+          @include text-preset-2;
+        }
+      }
+
+      &-value {
+        @include flex-row;
+        justify-content: space-between;
+
+        a {
+          @include flex-row;
+          gap: var(--spacing-8);
+          align-items: center;
+          @include text-preset-3;
+
+          &.price {
+            font-weight: var(--fw-bold);
+            color: var(--color-text-accent);
+          }
+          &.days {
+            color: var(--color-text);
+          }
+        }
+      }
+    }
+
+    &-line {
+      width: 100%;
+      height: 0.1rem;
+      background-color: var(--color-text);
+    }
+
+    &-footer {
+      @include flex-row;
+      align-items: center;
+      gap: var(--spacing-16);
+
+      img {
+        width: 3.3rem;
+        height: 3.3rem;
+        border: 2px solid var(--white);
+        border-radius: 50%;
+      }
+
+      .creator {
+        @include text-preset-3;
+        font-weight: var(--fw-bold);
+        color: var(--white);
+
+        &:hover,
+        &:active {
+          color: var(--color-text-accent);
+        }
+
+        span {
+          color: var(--color-text);
+        }
+      }
+    }
+  }
+}
