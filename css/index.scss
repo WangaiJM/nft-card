@@ -105,12 +105,13 @@ body {
   place-items: center;
 }
 .card {
-  background-color: var(--color-bg-card);
+  background-color: var(--color-bg-1);
   border-radius: var(--spacing-8);
   max-width: 35rem;
   padding: var(--spacing-24);
   @include flex-col;
   gap: var(--spacing-24);
+  box-shadow: 0 0 10rem 0.1rem var(--black);
 
   &-head {
     a {
